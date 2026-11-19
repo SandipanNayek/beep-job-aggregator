@@ -1,0 +1,15 @@
+{
+  "model": "gemini-3.1-flash-lite",
+  "pricingRates": {
+    "inputPer1MTokensUsd": 0.25,
+    "outputPer1MTokensUsd": 1.5
+  },
+  "totalActiveJobsInDb": 256,
+  "totalPostsClassifiedAcrossRuns": 287,
+  "totalPromptTokens": 44369,
+  "totalOutputTokens": 32448,
+  "avgPromptTokensPerPost": 154.6,
+  "avgOutputTokensPerPost": 113.06,
+  "estimatedCostPer1000PostsUsd": 0.2082,
+  "estimatedCostPer1000PostsInr": 17.6
+}
