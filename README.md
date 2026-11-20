@@ -4,7 +4,7 @@ An automated, daily-refreshing job aggregator for Indian entry-level and interns
 
 ## Live Links
 - **Live Web App:** <your-vercel-url>
-- **Data Audit & Cost Sheet:** <your-sheet-url>
+- **Data Audit & Cost Sheet:** https://docs.google.com/spreadsheets/d/1h7lWuhlHbmNbK71oalFRswOksNxgx83sSGD5ZsWNZOo/edit?usp=sharing
 
 ## Architecture & Pipeline
 1. **Multi-Source Ingestion (`scripts/ingest.ts`):** Queries 250+ public ATS boards (Greenhouse, Lever, Ashby, Workable, SmartRecruiters) and India-eligible remote feeds in parallel with 10s `AbortSignal` timeouts.
