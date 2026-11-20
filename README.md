@@ -3,7 +3,7 @@
 An automated, daily-refreshing job aggregator for Indian entry-level and internship roles, built with **Next.js**, **MongoDB Atlas**, **Google Gemini**, and **GitHub Actions**.
 
 ## Live Links
-- **Live Web App:** <your-vercel-url>
+- **Live Web App:** https://beep-job-aggregator.vercel.app/
 - **Data Audit & Cost Sheet:** https://docs.google.com/spreadsheets/d/1h7lWuhlHbmNbK71oalFRswOksNxgx83sSGD5ZsWNZOo/edit?usp=sharing
 
 ## Architecture & Pipeline
