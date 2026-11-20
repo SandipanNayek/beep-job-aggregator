@@ -1,36 +1,17 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+﻿# India Fresher & Internship Radar
 
-## Getting Started
+An automated, daily-refreshing job aggregator for Indian entry-level and internship roles, built with **Next.js**, **MongoDB Atlas**, **Google Gemini**, and **GitHub Actions**.
 
-First, run the development server:
+## Live Links
+- **Live Web App:** <your-vercel-url>
+- **Data Audit & Cost Sheet:** <your-sheet-url>
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Architecture & Pipeline
+1. **Multi-Source Ingestion (`scripts/ingest.ts`):** Queries 250+ public ATS boards (Greenhouse, Lever, Ashby, Workable, SmartRecruiters) and India-eligible remote feeds in parallel with 10s `AbortSignal` timeouts.
+2. **Pre-Filtering & Deduplication:** Filters for Indian locations and entry-level signals, then generates a normalized SHA-256 `dedupHash` (`company | normalized_title | city`) enforced by a unique MongoDB index.
+3. **Batched LLM Classification:** Classifies 20 postings per request using `gemini-3.1-flash-lite` with structured JSON schema output (`role`, `city`, `jobType`, `isEligibleFresher`), backed by a 5-model automatic fallback chain (`gemini-3.1-flash-lite` -> `gemini-3.5-flash-lite` -> `gemini-3.5-flash` -> `gemini-3.6-flash` -> `gemini-3.7-flash`) and per-batch MongoDB upserts.
+4. **Daily Auto-Refresh:** Scheduled via GitHub Actions (`.github/workflows/daily-ingest.yml`) every day at 7:30 AM IST (`0 2 * * *` UTC) and prunes listings older than 30 days.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Unit Economics
+- **Model:** `gemini-3.1-flash-lite` ($0.25 / 1M input tokens, $1.50 / 1M output tokens)
+- **Measured Cost:** ~$0.21 per 1,000 job postings
